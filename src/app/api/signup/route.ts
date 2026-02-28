@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabaseClient';
 
+const AUTH_COOKIE = 'mm_auth';
+
 export async function POST(req: NextRequest) {
   try {
     console.log('API /api/signup called');
@@ -43,7 +45,18 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    return NextResponse.json({ user: userData.user }, { status: 200 });
+    const res = NextResponse.json({ user: userData.user }, { status: 200 });
+
+    // Set auth cookie so user is considered logged in immediately
+    res.cookies.set(AUTH_COOKIE, '1', {
+      path: '/',
+      httpOnly: true,
+      sameSite: 'lax',
+      secure: process.env.NODE_ENV === 'production',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
+    });
+
+    return res;
   } catch (err) {
     console.error(err);
     return NextResponse.json(

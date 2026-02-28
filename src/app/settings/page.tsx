@@ -17,7 +17,12 @@ export default function SettingsPage() {
   const { mode } = useSelector((state: RootState) => state.theme);
   const user = useSelector((state: RootState) => state.auth.user);
 
-  const handleSignOut = () => {
+  const handleSignOut = async () => {
+    try {
+      await fetch('/api/logout', { method: 'POST' });
+    } catch {
+      // ignore network errors for logout
+    }
     dispatch(clearUser());
     router.push('/login');
   };
