@@ -1,0 +1,22 @@
+@layer base {
+  :root {
+    --background: #ffffff;
+    --text: #1a202c;
+    --primary: #3182ce;
+    --secondary: #ecc94b;
+    --accent: #ed8936;
+    --card-bg: #f7fafc;
+    --card-border: #e2e8f0;
+  }
+
+  /* Dark mode mappings */
+  .dark {
+    --background: #1a202c;
+    --text: #f7fafc;
+    --primary: #63b3ed;
+    --secondary: #faf089;
+    --accent: #fbd38d;
+    --card-bg: #2d3748;
+    --card-border: #4a5568;
+  }
+}

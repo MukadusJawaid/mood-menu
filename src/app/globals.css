@@ -1,26 +1,84 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* More premium, muted and modern light mode colors */
+    --background: #f8fafc; /* Slate 50 to soften brightness */
+    --text: #1e293b; /* Slate 800 */
+    --primary: #4F46E5; /* Indigo */
+    --secondary: #ec4899; /* Pink */
+    --accent: #8b5cf6; /* Violet */
+    --card-bg: #ffffff;
+    --card-border: #e2e8f0;
+  }
+
+  /* Deep rich dark mode mappings */
+  .dark {
+    --background: #0f172a; /* Slate 900 */
+    --text: #f8fafc; /* Slate 50 */
+    --primary: #818cf8; /* Indigo 400 */
+    --secondary: #f472b6; /* Pink 400 */
+    --accent: #a78bfa; /* Violet 400 */
+    --card-bg: #1e293b; /* Slate 800 */
+    --card-border: #334155; /* Slate 700 */
+  }
+
+  body {
+    @apply text-text transition-colors duration-300 antialiased overflow-x-hidden min-h-screen relative;
+    background-color: var(--background);
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    z-index: -1;
+    background-image: 
+      radial-gradient(at 40% 20%, hsla(250,100%,74%,0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsla(189,100%,56%,0.15) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsla(340,100%,76%,0.15) 0px, transparent 50%),
+      linear-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15, 23, 42, 0.04) 1px, transparent 1px);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+    background-attachment: fixed;
+  }
+
+  .dark body::before {
+    background-image: 
+      radial-gradient(at 40% 20%, hsla(250,100%,74%,0.15) 0px, transparent 50%),
+      radial-gradient(at 80% 0%, hsla(189,100%,56%,0.15) 0px, transparent 50%),
+      radial-gradient(at 0% 50%, hsla(340,100%,76%,0.15) 0px, transparent 50%),
+      linear-gradient(rgba(248, 250, 252, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(248, 250, 252, 0.03) 1px, transparent 1px);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Custom Utilities for premium feel */
+@layer utilities {
+  .glass {
+    background-color: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+  .dark .glass {
+    background-color: rgba(15, 23, 42, 0.6);
+    border-color: rgba(51, 65, 85, 0.5);
+  }
+
+  .glass-card {
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 20px 25px -5px rgba(79, 70, 229, 0.05), 0 8px 10px -6px rgba(79, 70, 229, 0.01);
+  }
+  .dark .glass-card {
+    background-color: rgba(30, 41, 59, 0.4);
+    border-color: rgba(51, 65, 85, 0.5);
+  }
 }
